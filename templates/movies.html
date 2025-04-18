@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title if page_title else 'Movie Collection' }}</title>
+    <style>
+        /* Your original styles – untouched */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #141414;
+            margin: 0;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .section {
+            margin: 30px;
+        }
+
+        .section h2 {
+            margin-bottom: 10px;
+        }
+
+        .movie-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+
+        .movie-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .movie-card {
+            flex: 0 0 auto;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            width: 200px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 280px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .movie-card h3 {
+            font-size: 16px;
+            margin: 10px 0 5px;
+        }
+
+        .movie-card p {
+            margin: 3px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .btns a {
+            display: inline-block;
+            margin: 4px 4px 0 0;
+            padding: 6px 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #e50914;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .btns a:hover {
+            background-color: #b00610;
+        }
+
+        .search-bar {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #searchInput {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        @media (max-width: 600px) {
+            #searchInput {
+                width: 90%;
+            }
+            .movie-card {
+                width: 150px;
+            }
+        }
+    </style>
+    <script>
+        // Filter movies based on the search input
+        function filterMovies() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.movie-card').forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const genre = card.querySelector('.genre').textContent.toLowerCase();
+                const year = card.querySelector('.year').textContent.toLowerCase();
+                card.style.display = (title.includes(input) || genre.includes(input) || year.includes(input)) ? '' : 'none';
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <h1>🎬 Movie Collection</h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" onkeyup="filterMovies()" placeholder="Search for a movie...">
+    </div>
+
+    <!-- Top Rated Movies Section -->
+    <div class="section">
+        <h2>🔥 Top Rated</h2>
+        <div class="movie-slider">
+            {% set sorted_movies = movies|sort(attribute='rating', reverse=true) %}
+            {% for movie in sorted_movies[:10] %}
+            <div class="movie-card">
+                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+                <h3>{{ movie.title }}</h3>
+                <p class="genre">{{ movie.genre }}</p>
+                <p class="year">{{ movie.year }}</p>
+                <p>⭐ {{ movie.rating }}/5</p>
+                <div class="btns">
+                    {% if movie.custom_button %}
+                        <a href="{{ movie.custom_button.link }}">{{ movie.custom_button.label }}</a>
+                    {% else %}
+                        <a href="/watch?torrent={{ movie.torrent_id }}&title={{ movie.title }}">▶️ Watch</a>
+                        <a href="/download?torrent={{ movie.torrent_id }}&title={{ movie.title }}">⬇️ Download</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- All Movies Section -->
+    <div class="section">
+        <h2>🎥 All Movies</h2>
+        <div class="movie-slider">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+                <h3>{{ movie.title }}</h3>
+                <p class="genre">{{ movie.genre }}</p>
+                <p class="year">{{ movie.year }}</p>
+                <p>⭐ {{ movie.rating }}/5</p>
+                <div class="btns">
+                    {% if movie.custom_button %}
+                        <a href="{{ movie.custom_button.link }}">{{ movie.custom_button.label }}</a>
+                    {% else %}
+                        <a href="/watch?torrent={{ movie.torrent_id }}&title={{ movie.title }}">▶️ Watch</a>
+                        <a href="/download?torrent={{ movie.torrent_id }}&title={{ movie.title }}">⬇️ Download</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

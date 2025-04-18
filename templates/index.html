@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> M C Entertainment Hub</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 350px;
+            background: url('https://source.unsplash.com/1600x900/?movies,fun') no-repeat center center/cover;
+            color: black;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* Moving Text */
+        .moving-text {
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: #222;
+            padding: 10px;
+            position: relative;
+        }
+
+        .moving-text span {
+            display: inline-block;
+            position: relative;
+            animation: moveText 12s linear infinite;
+        }
+
+        @keyframes moveText {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Content Sections */
+        .container {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .section {
+            margin: 40px auto;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            margin: 0 15px;
+            font-size: 24px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .footer-links a:hover {
+            color: #e50914;
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            nav a {
+                font-size: 16px;
+                padding: 12px 16px;
+            }
+            .footer-links a {
+                font-size: 20px;
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav a {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+            .footer-links a {
+                font-size: 18px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        M C Entertainment Hub
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('movies_page') }}">Movies</a>
+        <a href="{{ url_for('tools') }}">Download Tools</a>
+        <a href="{{ url_for('games') }}">Fun Games</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Movies, Downloads & Fun – All in One Place!</h1>
+        <p>Enjoy the latest movies, download your favorite social media content, and play fun games online.</p>
+    </div>
+
+    <!-- Moving Text -->
+    <div class="moving-text">
+        <span>🎬 Watch the latest movies | 🚀 Download videos from any platform | 🎮 Play exciting games | 🎉 Have fun with our entertainment hub!</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Movies Section -->
+        <div class="section">
+            <h2>🎬 Latest Movies</h2>
+            <p>Browse and watch the latest blockbuster movies online. Enjoy high-quality streaming with no interruptions!</p>
+        </div>
+
+        <!-- Download Tools Section -->
+        <div class="section">
+            <h2>📥 Social Media Download Tools</h2>
+            <p>Need to download videos from YouTube, Instagram, or TikTok? Use our easy-to-use tools for seamless downloads.</p>
+        </div>
+
+        <!-- Fun Games Section -->
+        <div class="section">
+            <h2>🎮 Play Fun Games</h2>
+            <p>Relax and have fun with our collection of simple yet addictive games. Play online, no downloads required!</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center;">
+      <div style="max-width: 1200px; margin: auto;">
+        <h2 style="margin-bottom: 10px;">M C MOVIES</h2>
+        <p style="margin: 0 auto 20px; max-width: 500px;">
+          Connect with us on your favorite platforms.
+        </p>
+        <div style="margin: 20px 0;">
+          <a href="https://t.me/+yefq8w79fz83MDE1" target="_blank" style="margin: 0 10px; color: #bbb; font-size: 24px;">
+            <i class="fab fa-telegram"></i>
+          </a>
+          <a href="https://chat.whatsapp.com/HzEkp4Alor0I9ZwS8re9ml" target="_blank" style="margin: 0 10px; color: #bbb; font-size: 24px;">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://www.instagram.com/moviecenter225?igsh=cWlmdWJmb2h6N3Vu" target="_blank" style="margin: 0 10px; color: #bbb; font-size: 24px;">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://facebook.com/yourpage" target="_blank" style="margin: 0 10px; color: #bbb; font-size: 24px;">
+            <i class="fab fa-facebook"></i>
+          </a>
+        </div>
+        <div style="margin-top: 20px; font-size: 14px;">
+          &copy; 2025 MC. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+</body>
+</html>

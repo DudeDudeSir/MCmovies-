@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #00b894;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #019875;
+        }
+
+        .btn-download {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #6c5ce7;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        #loader {
+            display: none;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Video Downloader</h1>
+
+    <form id="downloadForm" method="POST" action="/tools/download">
+        <input type="text" id="url" name="url" required placeholder="Paste YouTube or Instagram URL here">
+        <button type="submit">Download</button>
+    </form>
+
+   <!-- Paste this into your existing HTML replacing the old version -->
+<div id="loader">⏳ Processing your link, please wait...</div>
+<div id="result"></div>
+
+<script>
+    const form = document.getElementById("downloadForm");
+    const loader = document.getElementById("loader");
+    const resultDiv = document.getElementById("result");
+
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const url = document.getElementById("url").value;
+        loader.style.display = "block";
+        resultDiv.innerHTML = "";
+
+        try {
+            const response = await fetch('/tools/download', {
+                method: 'POST',
+                body: new URLSearchParams({ 'url': url }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+
+            const data = await response.json();
+            loader.style.display = "none";
+
+            if (data.download_link) {
+                resultDiv.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <img src="${data.thumbnail}" alt="Thumbnail" style="max-width: 300px; border-radius: 10px;">
+                    <br><br>
+                    <a href="${data.download_link}" class="btn-download" download>⬇️ Click here to Download</a>
+                `;
+            } else if (data.error) {
+                resultDiv.innerHTML = `<p style="color: #ff7675;">❌ Error: ${data.error}</p>`;
+            }
+        } catch (error) {
+            loader.style.display = "none";
+            resultDiv.innerHTML = `<p style="color: #ff7675;">⚠️ Something went wrong. Please try again.</p>`;
+        }
+    };
+</script>
+
+</body>
+</html>

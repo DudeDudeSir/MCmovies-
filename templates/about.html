@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - M C Entertainment Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header with logo and menu icon */
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    header .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Overlay Navigation */
+    .overlay {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.95);
+      overflow-x: hidden;
+      transition: 0.5s;
+    }
+
+    .overlay-content {
+      position: relative;
+      top: 25%;
+      width: 100%;
+      text-align: center;
+    }
+
+    .overlay a {
+      padding: 10px;
+      font-size: 40px;
+      color: #999;
+      text-decoration: none;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .overlay a:hover {
+      color: #e50914;
+    }
+
+    .overlay .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 60px;
+      color: white;
+    }
+
+    /* Content */
+    .content {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 0;
+    }
+
+    .social-icons a {
+      margin: 0 15px;
+      color: white;
+      font-size: 36px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #e50914;
+    }
+
+    @media screen and (max-height: 450px) {
+      .overlay a { font-size: 24px; }
+      .overlay .closebtn { font-size: 40px; top: 15px; right: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <img src="logo.png" alt="Logo" />
+    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+  </header>
+
+  <!-- Overlay Navigation -->
+  <div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content">
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="tools.html">Download Tools</a>
+      <a href="games.html">Fun Games</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>About Us</h1>
+    <p>Welcome to <strong>M C Entertainment Hub</strong>! We're your one-stop destination for blockbuster movies, handy download tools, and exciting games. Whether you're looking to stream, download, or simply unwind, we've got something for every movie buff and entertainment lover.</p>
+
+    <div class="social-icons">
+      <a href="https://t.me/yourchannel" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+      <a href="https://wa.me/yourwhatsapplink" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function openNav() {
+      document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeNav() {
+      document.getElementById("myNav").style.width = "0%";
+    }
+  </script>
+
+</body>
+</html>

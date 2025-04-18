@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+    <form action="/add_movie" method="POST" enctype="multipart/form-data">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="year">Year:</label><br>
+        <input type="text" id="year" name="year" required><br><br>
+
+        <label for="genre">Genre:</label><br>
+        <input type="text" id="genre" name="genre" required><br><br>
+
+        <label for="rating">Rating:</label><br>
+        <input type="text" id="rating" name="rating" required><br><br>
+
+        <label for="torrent_type">Torrent Type:</label><br>
+        <select id="torrent_type" name="torrent_type" onchange="toggleTorrentInput()" required>
+            <option value="link">Torrent Link</option>
+            <option value="file">Torrent File</option>
+        </select><br><br>
+
+        <div id="torrent-link" class="torrent-input">
+            <label for="torrent_link">Torrent Link:</label><br>
+            <input type="text" id="torrent_link" name="torrent_link" placeholder="Enter torrent link" required><br><br>
+        </div>
+
+        <div id="torrent-file" class="torrent-input" style="display: none;">
+            <label for="torrent_file">Upload Torrent File:</label><br>
+            <input type="file" id="torrent_file" name="torrent_file" accept=".torrent" required><br><br>
+        </div>
+
+        <label for="poster">Poster URL:</label><br>
+        <input type="text" id="poster" name="poster" required><br><br>
+
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <script>
+        function toggleTorrentInput() {
+            const torrentType = document.getElementById("torrent_type").value;
+            if (torrentType === "link") {
+                document.getElementById("torrent-link").style.display = "block";
+                document.getElementById("torrent-file").style.display = "none";
+            } else {
+                document.getElementById("torrent-link").style.display = "none";
+                document.getElementById("torrent-file").style.display = "block";
+            }
+        }
+
+        // Initialize the form to show the correct fields based on the selected option
+        toggleTorrentInput();
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+flask
+requests
+yt-dlp
+instaloader
+pymongo
+lbry-libtorrent

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Game</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 10px;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s;
+    }
+
+    .card.flipped {
+      background: #fff;
+      color: #333;
+      border: 2px solid #4CAF50;
+    }
+
+    .card.matched {
+      background: #ccc;
+      color: #999;
+      cursor: default;
+    }
+
+    .score {
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
+
+    .upgrade-message {
+      margin-top: 20px;
+      color: #4CAF50;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Memory Game</h1>
+  <div class="game-board" id="gameBoard"></div>
+  <div class="score" id="score">Score: 0</div>
+  <div class="upgrade-message" id="upgradeMessage"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    const emojis = ['🐶', '🐱', '🐵', '🦊', '🐸', '🐼', '🐰', '🦁'];
+    const board = document.getElementById('gameBoard');
+    const scoreDisplay = document.getElementById('score');
+    const upgradeMessage = document.getElementById('upgradeMessage');
+    let cards = [...emojis, ...emojis];
+    let flipped = [];
+    let matchedCount = 0;
+    let score = 0;
+
+    // Start background music
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.play();
+
+    // Shuffle function
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Create board with shuffled cards
+    function createBoard() {
+      const shuffled = shuffle(cards);
+      shuffled.forEach((emoji, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.emoji = emoji;
+        card.dataset.index = index;
+        card.innerText = '';
+        board.appendChild(card);
+      });
+    }
+
+    // Flip a card
+    function flipCard(card) {
+      if (flipped.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
+        return;
+      }
+
+      card.classList.add('flipped');
+      card.innerText = card.dataset.emoji;
+      flipped.push(card);
+
+      if (flipped.length === 2) {
+        setTimeout(checkMatch, 700);
+      }
+    }
+
+    // Check if two flipped cards match
+    function checkMatch() {
+      const [card1, card2] = flipped;
+      if (card1.dataset.emoji === card2.dataset.emoji) {
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedCount++;
+        score += 10; // Increase score with each match
+        scoreDisplay.innerText = 'Score: ' + score;
+
+        if (matchedCount === emojis.length) {
+          setTimeout(() => {
+            alert('🎉 You won! Refresh to play again.');
+            upgradeMessage.innerText = '🎮 Player upgraded! New Level Unlocked.';
+            bgMusic.pause(); // Stop music after win
+          }, 500);
+        }
+      } else {
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        card1.innerText = '';
+        card2.innerText = '';
+      }
+      flipped = [];
+    }
+
+    // Event listener for card clicks
+    board.addEventListener('click', e => {
+      if (e.target.classList.contains('card')) {
+        flipCard(e.target);
+      }
+    });
+
+    // Create the game board
+    createBoard();
+  </script>
+
+</body>
+</html>
